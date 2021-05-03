@@ -12,19 +12,29 @@
   "homepage": "https://www.amenum.com/amenum-core/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JayLehtinen/Amenum-Core.git"
+    "url": "git+https://github.com/Amenum/Amenum-Core.git"
   },
   "bugs": {
-    "url": "https://github.com/JayLehtinen/Amenum-Core/issues"
+    "url": "https://github.com/Amenum/Amenum-Core/issues"
   },
   "dependencies": {
-    "bootstrap": "^5.0.0-beta1"
+    "bootstrap": "^5.0.0-beta1",
+    "slick-carousel": "^1.8.1",
+    "stylelint-webpack-plugin": "^2.1.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^12.1.0",
+    "@soda/friendly-errors-webpack-plugin": "^1.8.0",
+    "@wordpress/scripts": "^15.0.1",
+    "browser-sync": "^2.26.14",
+    "browser-sync-webpack-plugin": "^2.3.0",
     "dir-archiver": "^1.1.1",
-    "node-sass": "^4.14.1",
-    "rtlcss": "^2.5.0"
+    "rtlcss": "^3.1.2",
+    "sass": "^1.32.12",
+    "sass-loader": "^10.1.1",
+    "webpack": "^5.36.2",
+    "webpack-assets-manifest": "^5.0.6",
+    "webpack-cli": "^4.6.0",
+    "webpack-merge": "^5.7.3"
   },
   "rtlcssConfig": {
     "options": {
@@ -40,8 +50,10 @@
     "map": false
   },
   "scripts": {
-    "watch": "node-sass sass/ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "compile:css": "node-sass sass/ -o ./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
+    "start": "webpack --watch --config webpack.config.start.js",
+    "watch": "sass sass/ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "build": "webpack --config webpack.config.production.js",
+    "compile:css": "sass sass/ -o ./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
     "compile:rtl": "rtlcss style.css style-rtl.css",
     "lint:scss": "wp-scripts lint-style 'sass/**/*.scss'",
     "lint:js": "wp-scripts lint-js 'js/*.js'",
