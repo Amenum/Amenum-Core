@@ -7,6 +7,20 @@
  * @package Amenum_Core
  */
 
+
+add_action( 'wp_enqueue_scripts', 'amenum_enqueue_theme_css' );
+function amenum_enqueue_theme_css() {
+    wp_enqueue_style(
+        'default',
+        get_template_directory_uri() . '/dist/main.css'
+    );
+}
+
+add_action( 'after_setup_theme', 'register_navwalker' );
+function register_navwalker(){
+	require_once get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
+}
+
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
 	define( '_S_VERSION', '1.0.0' );
@@ -143,7 +157,7 @@ function amenum_core_scripts() {
 	wp_enqueue_style( 'amenum-core-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'amenum-core-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'amenum-core-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'amenum-core-navigation', get_template_directory_uri() . '/dist/main.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

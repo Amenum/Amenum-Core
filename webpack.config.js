@@ -34,9 +34,7 @@ module.exports = {
   entry: {
     main: [
       './src/js/main.js',
-    ],
-    style: [
-      './src/sass/style.scss',
+      './src/sass/main.scss',
     ],
     admin: [
       './src/sass/admin.scss',

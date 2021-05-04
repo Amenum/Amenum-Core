@@ -23,37 +23,47 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'amenum-core' ); ?></a>
+	<a class="skip-link visually-hidden-focusable" href="#primary"><?php esc_html_e( 'Skip to content', 'amenum-core' ); ?></a>
 
 	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$amenum_core_description = get_bloginfo( 'description', 'display' );
-			if ( $amenum_core_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $amenum_core_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'amenum-core' ); ?></button>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+
+			<div class="navbar-brand">
+				<?php
+				the_custom_logo();
+				if ( is_front_page() && is_home() ) :
+					?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<?php
+				else :
+					?>
+					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+					<?php
+				endif;
+				$amenum_core_description = get_bloginfo( 'description', 'display' );
+				if ( $amenum_core_description || is_customize_preview() ) :
+					?>
+					<p class="site-description"><?php echo $amenum_core_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+				<?php endif; ?>
+			</div><!-- .navbar-brand -->
+
+			<button class="navbar-toggler" aria-controls="primary-menu" aria-expanded="false"><span class="navbar-toggler-icon"></span></button>
+			<div id="navbarSupportedContent" class="collapse navbar-collapse">
 			<?php
 			wp_nav_menu(
 				array(
 					'theme_location' => 'menu-1',
 					'menu_id'        => 'primary-menu',
+					'menu_class'	 => 'navbar-nav ml-auto',
+					'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+					'walker'          => new WP_Bootstrap_Navwalker(),
 				)
 			);
 			?>
+			</div><!-- #navbarSupportedContent -->
+			</div><!-- #container -->
 		</nav><!-- #site-navigation -->
+		
 	</header><!-- #masthead -->

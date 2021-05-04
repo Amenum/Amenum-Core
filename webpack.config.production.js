@@ -1,10 +1,9 @@
 'use strict';
 
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Terser = require('terser');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const common = require('./webpack.config.js');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -30,15 +29,13 @@ module.exports = merge(common, {
   ],
   optimization: {
     minimizer: [
-      new Terser({}),
-      new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: {
-          discardComments: {
-            removeAll: true,
-          },
-        },
-        canPrint: true,
-      }),
-    ],
+      (compiler) => {
+          new TerserPlugin({
+            terserOptions: {
+                  compress: {},
+              }
+          }).apply(compiler);
+      },
+  ],
   },
 });
